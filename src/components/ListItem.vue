@@ -2,15 +2,20 @@
   <div>
     <div class="columns">
       <div class="column is-half is-offset-one-quarter">
-        <ul>
-          <li v-for="(l, index) in list" :key="index">
-            <span class="is-size-3" @dblclick="edit(index)" v-if="index !== editIndex"> {{ l.text }} </span>
-            <span class="is-size-3">{{ l.money }}</span>
-            <div>
-              <input type="text" v-model="l.text" v-if="index === editIndex" @blur="blurFunction(l)" @keyup.enter="blurFunction(l)">
+        <div class="columns" v-for="(l, index) in list" :key="index">
+          <div class="column has-text-left">
+            <div  class="is-size-3" @dblclick="edit(index, 'text')" v-show="index !== editIndex || editType === 'money'"> {{ l.text }} </div>
+            <div class="is-size-3" v-show="index === editIndex && editType === 'text' " >
+              <input type="text" v-model="l.text"  @blur="blurFunction(l)" @keyup.enter="blurFunction(l)">
             </div>
-          </li>
-        </ul>
+          </div>
+           <div class="column has-text-right">
+             <div  class="is-size-3" @dblclick="edit(index, 'money')" v-show="index !== editIndex || editType === 'text'"> {{ l.money }}</div>
+             <div class="is-size-3" v-show="index === editIndex && editType === 'money' " >
+              <input type="text" v-model="l.money"  @blur="blurFunction(l)" @keyup.enter="blurFunction(l)">
+            </div>
+           </div>
+        </div>
       </div>
     </div>
   </div>
@@ -21,18 +26,32 @@ export default {
   props: ['list'],
   data () {
     return {
-      editIndex: -1
+      editIndex: -1,
+      editType: ''
     }
   },
   methods: {
-    edit (index) {
+    edit (index, type) {
+      if (type === 'text') {
+        this.editType = 'text'
+      } else {
+        this.editType = 'money'
+      }
       this.editIndex = index
     },
     blurFunction (data) {
       if (data) {
         this.editIndex = -1
+        this.editType = ''
       }
     }
   }
 }
 </script>
+
+<style>
+.flex {
+  display: flex;
+  justify-content: space-between;
+}
+</style>
