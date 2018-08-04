@@ -19,8 +19,6 @@ export default {
     return {
       msg: 'Save your money in procesing!😋',
       list: []
-      // text: '',
-      // money: 0
     }
   },
   methods: {
