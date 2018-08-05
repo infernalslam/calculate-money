@@ -3,9 +3,12 @@
 import Vue from 'vue'
 import App from './App'
 import router from './router'
+import dayjs from 'dayjs'
 
 import '../node_modules/bulma/css/bulma.min.css'
 Vue.config.productionTip = false
+
+Vue.prototype.dayjs = dayjs
 
 /* eslint-disable no-new */
 new Vue({

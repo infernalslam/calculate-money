@@ -13,7 +13,12 @@
     </div>
     <div class="columns">
       <div class="column">
-        <sum :summaryData="summaryData"></sum>
+        <sum :summaryData="summaryData" @saveMoney="saveMoney"></sum>
+      </div>
+    </div>
+    <div class="columns">
+      <div class="column">
+        <graph :entries="entries"></graph>
       </div>
     </div>
   </div>
@@ -23,17 +28,25 @@
 import FormData from './Form'
 import ListItem from './ListItem'
 import Sum from './Sum'
+import Graph from './Graph'
 export default {
   name: 'Index',
   components: {
     FormData,
     ListItem,
-    Sum
+    Sum,
+    Graph
   },
   data () {
     return {
       msg: 'Calculate money  😞😤',
-      list: []
+      list: [],
+      entries: [
+        {
+          counting: 1000,
+          created_at: '2018-06-21'
+        }
+      ]
     }
   },
   methods: {
@@ -41,6 +54,10 @@ export default {
       if (form.text && (parseFloat(form.money) > 0)) {
         this.list.push(form)
       }
+    },
+    saveMoney (money) {
+      this.entries.push({ counting: money, created_at: this.dayjs().format('YYYY-MM-DD') })
+      console.log(this.entries)
     }
   },
   computed: {
