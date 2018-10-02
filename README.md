@@ -1,4 +1,4 @@
-# save-money
+# Calculate Money
 
 > A Vue.js project
 
